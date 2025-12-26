@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eatsy Account Management Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #1f2937;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .header h1 {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 18px;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        .content {
+            padding: 50px 40px;
+        }
+
+        .overview {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border-left: 4px solid #3b82f6;
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+        }
+
+        .overview h2 {
+            color: #1e40af;
+            font-size: 24px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .overview ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .overview li {
+            padding: 8px 0;
+            font-size: 16px;
+            color: #1e40af;
+        }
+
+        .overview li strong {
+            color: #1e3a8a;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: #111827;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .icon {
+            font-size: 36px;
+        }
+
+        .card {
+            background: #f9fafb;
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 24px;
+            border: 2px solid #e5e7eb;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: #f97316;
+            box-shadow: 0 8px 24px rgba(249, 115, 22, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #374151;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .card ol {
+            padding-left: 20px;
+            margin-bottom: 12px;
+        }
+
+        .card li {
+            margin-bottom: 8px;
+            color: #4b5563;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            border-left: 4px solid #dc2626;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+
+        .warning-box h4 {
+            color: #991b1b;
+            font-size: 18px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .warning-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .warning-box li {
+            color: #7f1d1d;
+            padding: 4px 0;
+        }
+
+        .success-box {
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+            border-left: 4px solid #10b981;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+
+        .success-box h4 {
+            color: #065f46;
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .success-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .success-box li {
+            color: #047857;
+            padding: 4px 0;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 24px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+            color: white;
+            padding: 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .comparison-table td {
+            padding: 16px;
+            border-bottom: 1px solid #e5e7eb;
+            background: white;
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table tr:nth-child(even) td {
+            background: #f9fafb;
+        }
+
+        .comparison-table td:first-child {
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        .badge-success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .badge-warning {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-danger {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .faq {
+            background: #ffffff;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .faq:hover {
+            border-color: #f97316;
+            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.1);
+        }
+
+        .faq h4 {
+            color: #f97316;
+            font-size: 18px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .faq p {
+            color: #4b5563;
+            line-height: 1.7;
+        }
+
+        .security-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 24px 0;
+        }
+
+        .security-card {
+            background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+            padding: 24px;
+            border-radius: 12px;
+            border: 2px solid #fed7aa;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .security-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(249, 115, 22, 0.2);
+        }
+
+        .security-card .icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        .security-card h4 {
+            color: #9a3412;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .security-card p {
+            color: #7c2d12;
+            font-size: 14px;
+        }
+
+        .footer {
+            background: #f9fafb;
+            padding: 40px;
+            text-align: center;
+            border-top: 2px solid #e5e7eb;
+        }
+
+        .footer h3 {
+            color: #1f2937;
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+
+        .footer p {
+            color: #6b7280;
+            font-size: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 40px 24px;
+            }
+
+            .header h1 {
+                font-size: 32px;
+            }
+
+            .content {
+                padding: 30px 24px;
+            }
+
+            .section-title {
+                font-size: 26px;
+            }
+
+            .security-features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🍽️ Eatsy Account Management Guide</h1>
+            <p>Complete guide to managing your account settings</p>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <!-- Overview -->
+            <div class="overview">
+                <h2>📋 Overview</h2>
+                <p style="margin-bottom: 16px;">Eatsy provides two options for managing your account:</p>
+                <ul>
+                    <li><strong>1. Deactivate Account</strong> - Temporarily disable your account (reversible)</li>
+                    <li><strong>2. Delete Account</strong> - Permanently delete your account (30-day grace period)</li>
+                </ul>
+                <p style="margin-top: 16px; font-weight: 600;">Both actions require OTP (One-Time Password) verification for security.</p>
+            </div>
+
+            <!-- Deactivate Account Section -->
+            <div class="section">
+                <h2 class="section-title"><span class="icon">🔸</span> How to Deactivate Your Account</h2>
+                <p style="font-size: 18px; color: #6b7280; margin-bottom: 24px;">Deactivating your account is <strong>temporary and reversible</strong>. Your profile will be hidden, but you can reactivate it anytime by logging back in.</p>
+
+                <div class="card">
+                    <h3><span class="step-number">1</span> Navigate to Account Settings</h3>
+                    <ol>
+                        <li>Open the Eatsy app</li>
+                        <li>Go to your <strong>Profile</strong> screen</li>
+                        <li>Tap on <strong>Account Settings</strong></li>
+                    </ol>
+                </div>
+
+                <div class="card">
+                    <h3><span class="step-number">2</span> Select Deactivate Account</h3>
+                    <ol>
+                        <li>On the Account Settings screen, you'll see two options</li>
+                        <li>Tap on <strong>Deactivate Account</strong> (orange icon with pause symbol)</li>
+                        <li>Read the warning that explains what happens when you deactivate</li>
+                    </ol>
+                    <div class="warning-box">
+                        <h4>⚠️ What happens when you deactivate?</h4>
+                        <ul>
+                            <li>• Your profile will be hidden</li>
+                            <li>• Your posts won't be visible</li>
+                            <li>• You can reactivate anytime</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3><span class="step-number">3</span> Provide a Reason</h3>
+                    <ol>
+                        <li>Select a reason for deactivating:
+                            <ul style="margin-top: 8px; list-style: disc; padding-left: 20px;">
+                                <li>Taking a break</li>
+                                <li>Privacy concerns</li>
+                                <li>Too many notifications</li>
+                                <li>Not using the app</li>
+                                <li>Other (requires additional text input)</li>
+                            </ul>
+                        </li>
+                        <li>If you select "Other", type your specific reason</li>
+                        <li>Tap <strong>Continue</strong></li>
+                    </ol>
+                </div>
+
+                <div class="card">
+                    <h3><span class="step-number">4</span> Verify with OTP</h3>
+                    <ol>
+                        <li>An OTP code will be sent to your registered email</li>
+                        <li>Check your email for the 6-digit verification code</li>
+                        <li>Enter the code in the OTP input field</li>
+                        <li>Tap <strong>Deactivate Account</strong></li>
+                    </ol>
+                </div>
+
+                <div class="card">
+                    <h3><span class="step-number">5</span> Account Deactivated</h3>
+                    <ol>
+                        <li>You'll see a confirmation message: "Account Deactivated"</li>
+                        <li>The message confirms you can reactivate anytime by logging in</li>
+                        <li>Tap <strong>OK</strong></li>
+                        <li>You'll be logged out automatically</li>
+                    </ol>
+                </div>
+
+                <div class="success-box">
+                    <h4>✅ What Happens After Deactivation?</h4>
+                    <ul>
+                        <li>✅ Your account is hidden from other users</li>
+                        <li>✅ Your data is preserved</li>
+                        <li>✅ You can reactivate by logging in again</li>
+                        <li>❌ Other users cannot see your profile or posts</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Delete Account Section -->
+            <div class="section">
+                <h2 class="section-title"><span class="icon">🔸</span> How to Delete Your Account</h2>
+                <p style="font-size: 18px; color: #6b7280; margin-bottom: 24px;">Deleting your account is <strong>permanent</strong> but includes a <strong>30-day grace period</strong> during which you can cancel the deletion.</p>
+
+                <div class="card">
+                    <h3><span class="step-number">1</span> Navigate to Account Settings</h3>
+                    <ol>
+                        <li>Open the Eatsy app</li>
+                        <li>Go to your <strong>Profile</strong> screen</li>
+                        <li>Tap on <strong>Account Settings</strong></li>
+                    </ol>
+                </div>
+
+                <div class="card">
+                    <h3><span class="step-number">2</span> Select Delete Account</h3>
+                    <ol>
+                        <li>On the Account Settings screen, you'll see two options</li>
+                        <li>Tap on <strong>Delete Account</strong> (red icon with trash symbol)</li>
+                        <li>Read the <strong>DANGER WARNING</strong></li>
+                    </ol>
+                    <div class="warning-box">
+                        <h4>⚠️ PERMANENT ACTION</h4>
+                        <ul>
+                            <li>• All your data will be deleted</li>
+                            <li>• This cannot be undone after 30 days</li>
+                            <li>• You have 30 days to cancel</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3><span class="step-number">3</span> Provide a Reason</h3>
+                    <ol>
+                        <li>Select a reason for deleting:
+                            <ul style="margin-top: 8px; list-style: disc; padding-left: 20px;">
+                                <li>No longer need the service</li>
+                                <li>Privacy concerns</li>
+                                <li>Found a better alternative</li>
+                                <li>Too expensive</li>
+                                <li>Other (requires additional text input)</li>
+                            </ul>
+                        </li>
+                        <li>If you select "Other", type your specific reason</li>
+                        <li>Tap <strong>Continue</strong></li>
+                    </ol>
+                </div>
+
+                <div class="card">
+                    <h3><span class="step-number">4</span> Final Confirmation</h3>
+                    <ol>
+                        <li>An OTP code will be sent to your registered email</li>
+                        <li>Check your email for the 6-digit verification code</li>
+                        <li>Enter the code in the <strong>Verification Code</strong> field</li>
+                        <li>Type <strong>"DELETE MY ACCOUNT"</strong> exactly as shown (all caps) in the confirmation field</li>
+                        <li>Tap <strong>Delete My Account</strong></li>
+                    </ol>
+                </div>
+
+                <div class="card">
+                    <h3><span class="step-number">5</span> Deletion Scheduled</h3>
+                    <ol>
+                        <li>You'll see a confirmation message: "Account Scheduled for Deletion"</li>
+                        <li>The message confirms your account will be deleted in 30 days</li>
+                        <li>You can cancel this within the grace period</li>
+                        <li>Tap <strong>OK</strong></li>
+                        <li>You'll be logged out automatically</li>
+                    </ol>
+                </div>
+
+                <div class="warning-box">
+                    <h4>⏳ What Happens After Deletion?</h4>
+                    <ul>
+                        <li>⏳ 30-day grace period begins</li>
+                        <li>✅ You can cancel deletion within 30 days</li>
+                        <li>❌ After 30 days, all data is permanently deleted</li>
+                        <li>❌ This action cannot be undone after the grace period</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Reactivate Account Section -->
+            <div class="section">
+                <h2 class="section-title"><span class="icon">🔸</span> How to Reactivate a Deactivated Account</h2>
+                <p style="font-size: 18px; color: #6b7280; margin-bottom: 24px;">If you've deactivated your account and want to come back, reactivation is simple!</p>
+
+                <div class="card">
+                    <h3><span class="step-number">1</span> Access Reactivation Screen</h3>
+                    <ol>
+                        <li>Open the Eatsy app</li>
+                        <li>From the login screen, look for the <strong>Reactivate Account</strong> option</li>
+                        <li>Tap on <strong>Reactivate Account</strong></li>
+                    </ol>
+                </div>
+
+                <div class="card">
+                    <h3><span class="step-number">2</span> Enter Your Email</h3>
+                    <ol>
+                        <li>You'll see a welcome message: "Welcome Back!"</li>
+                        <li>Enter your registered email address</li>
+                        <li>Tap <strong>Send Code</strong></li>
+                    </ol>
+                </div>
+
+                <div class="card">
+                    <h3><span class="step-number">3</span> Verify with OTP</h3>
+                    <ol>
+                        <li>An OTP code will be sent to your email</li>
+                        <li>Check your email for the 6-digit verification code</li>
+                        <li>Enter the code in the OTP input field</li>
+                        <li>Tap <strong>Reactivate Account</strong></li>
+                    </ol>
+                </div>
+
+                <div class="card">
+                    <h3><span class="step-number">4</span> Account Reactivated</h3>
+                    <ol>
+                        <li>You'll see a confirmation message: "Welcome Back!"</li>
+                        <li>Your account has been reactivated successfully</li>
+                        <li>All your data is restored</li>
+                        <li>You'll be automatically logged in</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Comparison Table -->
+            <div class="section">
+                <h2 class="section-title"><span class="icon">📋</span> Key Differences: Deactivate vs Delete</h2>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Deactivate</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Reversibility</td>
+                            <td><span class="badge badge-success">✅ Fully reversible</span></td>
+                            <td><span class="badge badge-warning">⚠️ 30-day grace period</span></td>
+                        </tr>
+                        <tr>
+                            <td>Data Preservation</td>
+                            <td><span class="badge badge-success">✅ All data preserved</span></td>
+                            <td><span class="badge badge-danger">❌ Deleted after 30 days</span></td>
+                        </tr>
+                        <tr>
+                            <td>Profile Visibility</td>
+                            <td>Hidden</td>
+                            <td>Removed</td>
+                        </tr>
+                        <tr>
+                            <td>Reactivation</td>
+                            <td>Login anytime</td>
+                            <td>Must cancel within 30 days</td>
+                        </tr>
+                        <tr>
+                            <td>OTP Required</td>
+                            <td><span class="badge badge-success">✅ Yes</span></td>
+                            <td><span class="badge badge-success">✅ Yes</span></td>
+                        </tr>
+                        <tr>
+                            <td>Additional Confirmation</td>
+                            <td><span class="badge badge-success">❌ No</span></td>
+                            <td><span class="badge badge-warning">✅ Must type "DELETE MY ACCOUNT"</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Security Features -->
+            <div class="section">
+                <h2 class="section-title"><span class="icon">🔒</span> Security Features</h2>
+                <p style="font-size: 18px; color: #6b7280; margin-bottom: 24px;">Both deactivation and deletion processes include security measures:</p>
+                
+                <div class="security-features">
+                    <div class="security-card">
+                        <div class="icon">🔐</div>
+                        <h4>OTP Verification</h4>
+                        <p>6-digit code sent to your registered email</p>
+                    </div>
+                    <div class="security-card">
+                        <div class="icon">📝</div>
+                        <h4>Reason Collection</h4>
+                        <p>Helps improve the service</p>
+                    </div>
+                    <div class="security-card">
+                        <div class="icon">⚠️</div>
+                        <h4>Clear Warnings</h4>
+                        <p>Detailed information about consequences</p>
+                    </div>
+                    <div class="security-card">
+                        <div class="icon">✅</div>
+                        <h4>Confirmation Steps</h4>
+                        <p>Multiple steps to prevent accidents</p>
+                    </div>
+                    <div class="security-card">
+                        <div class="icon">⏳</div>
+                        <h4>Grace Period</h4>
+                        <p>30 days to change your mind (Delete only)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Section -->
+            <div class="section">
+                <h2 class="section-title"><span class="icon">❓</span> Frequently Asked Questions</h2>
+                
+                <div class="faq">
+                    <h4>Can I cancel a scheduled deletion?</h4>
+                    <p>Yes! You have 30 days to cancel the deletion before it becomes permanent.</p>
+                </div>
+
+                <div class="faq">
+                    <h4>What happens to my data when I deactivate?</h4>
+                    <p>All your data is preserved and will be restored when you reactivate.</p>
+                </div>
+
+                <div class="faq">
+                    <h4>How long does it take to deactivate/delete my account?</h4>
+                    <p>Deactivation is immediate. Deletion is scheduled for 30 days from the request.</p>
+                </div>
+
+                <div class="faq">
+                    <h4>Can I reactivate after deleting?</h4>
+                    <p>Only within the 30-day grace period. After that, deletion is permanent.</p>
+                </div>
+
+                <div class="faq">
+                    <h4>What if I don't receive the OTP code?</h4>
+                    <p>Check your spam folder. If still not received, try requesting a new code or contact support.</p>
+                </div>
+
+                <div class="faq">
+                    <h4>Will I lose my order history?</h4>
+                    <p><strong>Deactivate:</strong> No, it's preserved. <strong>Delete:</strong> Yes, after the 30-day grace period.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <h3>📞 Need Help?</h3>
+            <p>If you encounter any issues during the deactivation or deletion process, please contact Eatsy support for assistance.</p>
+        </div>
+    </div>
+</body>
+</html>
